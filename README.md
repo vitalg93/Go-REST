@@ -2,7 +2,7 @@
 The REST API service on Golang, which has one method-which returns a slice from the Fibonacci sequence from the indices `x` to `y`
 
 ## Input parameters
-`x`, `y` - the integer ordinal numbers of the fibonacci sequence
+`x`, `y` - the integer ordinal numbers of the Fibonacci sequence
 
 ## Output
 The output should list all the numbers, the Fibonacci sequences with ordinal numbers from `x` to `y`    
@@ -19,5 +19,5 @@ URL for this example is http://127.0.0.1:8080/fibonachi?x=0&y=5
 
 ## Quick start
 + Install Go (if you haven't already): https://golang.org/doc/tutorial/getting-started
-+ In project directory run in terminal `go run main.go`
++ In project directory run in terminal: `go run main.go`
 + Ready! Try to send URL in your browser http://127.0.0.1:8080/fibonachi?x=X_PARAM&y=Y_PARAM, where 'X_PARAM' and `Y_PARAM` correspond to the "Restrictions" section
