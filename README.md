@@ -2,7 +2,7 @@
 The REST API service on Golang, which has one method-which returns a slice from the Fibonacci sequence from the indices `x` to `y`
 
 ## Input parameters
-`x`, `y` - the integer ordinal numbers of the Fibonacci sequence
+`x`, `y` - the integer ordinal indices of the Fibonacci sequence
 
 ## Output
 The output should list all the numbers, the Fibonacci sequences with ordinal numbers from `x` to `y`    
