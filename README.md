@@ -6,9 +6,7 @@ The REST API service on Golang, which has one method-which returns a slice from 
 
 ## Output
 The output should list all the numbers, the Fibonacci sequences with ordinal numbers from `x` to `y`.
-```json
-{"x":X_NUM,"y":Y_NUM,"answer":[*The slice of Fibonacci sequence*]}
-```
+`{"x":X_NUM,"y":Y_NUM,"answer":[*The slice of Fibonacci sequence*]}`
 
 ## Limitations
 Conditions under which the service will give the correct answer is:    
