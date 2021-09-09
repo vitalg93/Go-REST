@@ -2,12 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
-
-	"github.com/gorilla/mux"
 )
 
 type Task struct {
@@ -16,35 +13,10 @@ type Task struct {
 	Answer []int `json:"answer"`
 }
 
-var tasks []Task
+// TODO: Save resolved tasks to cache
+//var tasks []Task
 
-func getFibonachi(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	params := mux.Vars(r)
-
-	// получение параметров и их конвертация в целое число (int)
-	x, err := strconv.Atoi(params["x"])
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	y, err := strconv.Atoi(params["y"])
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	slice := getFibonachiSlice(x, y)
-	fmt.Println(x, y, slice)
-
-	task := Task{x, y, slice}
-	//fmt.Println(task)
-	tasks = append(tasks, task)
-	json.NewEncoder(w).Encode(task)
-}
-
-// Вычисление числа из последовательности Фибоначчи,
+// Calculating a number from the Fibonacci sequence
 func fibonachi() func() int {
 	first, second := 0, 1
 	return func() int {
@@ -54,7 +26,7 @@ func fibonachi() func() int {
 	}
 }
 
-// Возвращает срез последовательности чисел из ряда Фибоначчи от x до y
+// Returns a slice of a sequence of numbers from the Fibonacci series from x to y
 func getFibonachiSlice(x, y int) []int {
 	f := fibonachi()
 	var result []int
@@ -67,10 +39,45 @@ func getFibonachiSlice(x, y int) []int {
 	return result
 }
 
+// Checks the request parameters and outputs a slice
+func getFibonachi(w http.ResponseWriter, r *http.Request) {
+	textX := r.FormValue("x")
+	textY := r.FormValue("y")
+
+	if textX == "" {
+		http.Error(w, "missing value x", http.StatusBadRequest)
+		return
+	}
+
+	if textY == "" {
+		http.Error(w, "missing value y", http.StatusBadRequest)
+		return
+	}
+
+	x, err := strconv.Atoi(textX)
+	if err != nil {
+		http.Error(w, "can't convert x into int", http.StatusBadRequest)
+		return
+	}
+
+	y, err := strconv.Atoi(textY)
+	if err != nil {
+		http.Error(w, "can't convert y into int", http.StatusBadRequest)
+		return
+	}
+
+	slice := getFibonachiSlice(x, y)
+	task := Task{x, y, slice}
+
+	// TODO: for saving in cache
+	//tasks = append(tasks, task)
+	json.NewEncoder(w).Encode(task)
+}
+
 func main() {
-	router := mux.NewRouter()
-	http.Handle("/", router)
-	router.HandleFunc("/fibonachi/{x:[0-9]+}/{y:[0-9]+}", getFibonachi).Methods("GET")
-	fmt.Println("Server started. Try to get Fibonachi slice (JSON) from x to y by URL http://127.0.0.1:8000/fibonachi/x/y. Valid answer by x >= y and x, y > 0 and x, y <= 92")
-	log.Fatal(http.ListenAndServe(":8000", router))
+	http.HandleFunc("/fibonachi", getFibonachi)
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
