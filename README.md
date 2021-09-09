@@ -1,5 +1,6 @@
 # Get Fibonachi Slice
-The REST API service on Golang, which has one method-which returns a slice from the Fibonacci sequence from the indices `x` to `y`
+The REST API service on Golang, which has one method-which returns a slice from the Fibonacci sequence from the indices `x` to `y`. 
+Code have tests.
 
 ## Input parameters
 `x`, `y` - the integer ordinal indices of the Fibonacci sequence
@@ -21,3 +22,4 @@ URL for this example is http://127.0.0.1:8080/fibonachi?x=0&y=5
 + Install Go (if you haven't already): https://golang.org/doc/tutorial/getting-started
 + In project directory run in terminal: `go run main.go`
 + Ready! Try to send URL in your browser http://127.0.0.1:8080/fibonachi?x=X_PARAM&y=Y_PARAM, where 'X_PARAM' and `Y_PARAM` correspond to the "Restrictions" section
++ (Additionally): run tests in project directory with command `go test -v` in terminal
