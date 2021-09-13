@@ -74,9 +74,15 @@ func getFibonachi(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(task)
 }
 
+// Route handler
+func handler() http.Handler {
+	r := http.NewServeMux()
+	r.HandleFunc("/fibonachi", getFibonachi)
+	return r
+}
+
 func main() {
-	http.HandleFunc("/fibonachi", getFibonachi)
-	err := http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", handler())
 	if err != nil {
 		log.Fatal(err)
 	}
