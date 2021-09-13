@@ -1,4 +1,4 @@
-# Get Fibonachi Slice (REST-API)
+# Get Fibonachi slice (REST-API)
 The REST API service on Golang, which has one method-which returns a slice from the Fibonacci sequence from the indices `x` to `y`. 
 Code have tests.
 
